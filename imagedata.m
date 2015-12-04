@@ -21,3 +21,4 @@ end
 % 
 % test_img = reshape(w(:,1),size);
 % imshow(test_img,[]);
+[w,h] = boardnmf(database,ceil(0.3*imgsize(1)*imgsize(2)),1);
