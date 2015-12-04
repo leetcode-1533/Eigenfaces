@@ -1,4 +1,4 @@
-V=double(imread('concordorthophoto.png'));
+V=double(imread('cameraman.tif'));
 
 % function [W,H]=seung(V,r)
 s=size(V);
