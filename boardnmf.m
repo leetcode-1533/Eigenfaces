@@ -27,8 +27,8 @@ function [w,h]=nmf(v,r,verbose)
 %           unless verbose is 0 
 %           
 % Note : NMF iterations stop when connectivity matrix has not changed 
-%        for 10*stopconv interations. This is experimental and can be
-%        adjusted.
+%        for stopconv interations. This is experimental and can be
+%        adjusted. ___>>> get changed to 5
 %
 % w    : N x r NMF factor
 % h    : r x M NMF factor
@@ -46,7 +46,7 @@ end
 
 
 [n,m]=size(v);
-stopconv=40;      % stopping criterion (can be adjusted)
+stopconv=5;      % stopping criterion (can be adjusted)
 niter = 2000;     % maximum number of iterations (can be adjusted)
 
 cons=zeros(m,m);
