@@ -21,18 +21,3 @@ end
 % 
 % test_img = reshape(w(:,1),size);
 % imshow(test_img,[]);
-clear;
-img = double(imread('cameraman.tif'));
-imgsize = size(img);
-splitsize = imgsize(2)/2;
-people = imgsize(2);
-
-winit = zeros(imgsize(1),splitsize);
-% hinit = zeros(splitsize,length(people));
-hinit = zeros(splitsize,(people));
-tol = 0.1;
-timelimit = 20;
-maxiter = 100000;
-
-% [w,h] = nmf(database,winit,hinit,tol,timelimit,maxiter);
-[w,h] = nmf(img,winit,hinit,tol,timelimit,maxiter);
