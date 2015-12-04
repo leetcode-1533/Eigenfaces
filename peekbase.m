@@ -1,4 +1,4 @@
-function peekbase(w,filename,imgsize)
+function peekbase(w,imgsize,filename)
 f = figure;
 for i = 1:40
     figure(f);
