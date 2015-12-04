@@ -16,14 +16,10 @@ end
 % img = reshape(img,[112,92]);
 % imshow(database,[])
 
-%%% apply NMF
-% [w,h] = seung(database,20);
 % 
-% test_img = reshape(w(:,1),size);
-% imshow(test_img,[]);
-for i = 1:8
-    fprintf('***Compression Rate 0.%d***\n',i);
-    [w,h] = boardnmf(database,ceil(0.1*i*imgsize(1)*imgsize(2)),1);
-    peekbase(w,imgsize,['compressionperc',num2str(i)]);
-    clearvars w h
-end
+% for i = 1:8
+%     fprintf('***Compression Rate 0.%d***\n',i);
+%     [w,h] = boardnmf(database,ceil(0.1*i*imgsize(1)*imgsize(2)),1);
+%     peekbase(w,imgsize,['compressionperc',num2str(i)]);
+%     clearvars w h
+% end
