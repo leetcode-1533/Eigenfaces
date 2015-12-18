@@ -1,16 +1,21 @@
-clear;
-dir = 'att_faces';
+function database = imagedata()
+% Generate Image database
+dir = '~/Dropbox/MATLAB/eigenface/att_faces';
 people = 1:40;
-splitsize = 20;
-image = '1.pgm';
+subpeople = 1:10;
 imgsize = [112,92];
-database = zeros(112*92,length(people));
+
+database = zeros(imgsize(1)*imgsize(2),length(people)*length(subpeople));
 
 for i = people
-    people_dir = strcat('s',num2str(i));
-    f = fullfile(dir,people_dir,image);
-    img = double(imread(f));
-    database(:,i) = img(:);
+    for j = subpeople
+        people_dir = strcat('s',num2str(i));
+        image = strcat(num2str(j),'.pgm');
+        f = fullfile(dir,people_dir,image);
+
+        img = double(imread(f));
+        database(:,(i-1)*length(subpeople)+j) = img(:);
+    end
 end
 
 % img = reshape(img,[112,92]);
