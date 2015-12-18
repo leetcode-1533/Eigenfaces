@@ -2,4 +2,6 @@
 .DS_Store
 *.un~
 *.m~
+
 nmf/datafile/*
+pca/datafile/*
