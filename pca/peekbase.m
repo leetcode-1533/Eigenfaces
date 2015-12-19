@@ -1,9 +1,8 @@
 imgsize = [112,92]; 
 f = figure;
-for i = 1:30
+for i = 0:29
     figure(f);
-    test = pvector(:,i);
+    test = pvector(:,end-i);
     test = reshape(test,imgsize);
-    subplot(5,6,i);imshow((test),[])
-    title(num2str(pvalue(i)))
+    subplot(5,6,i+1);imshow((test),[])
 end
