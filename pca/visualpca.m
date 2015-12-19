@@ -4,9 +4,9 @@
 
 for k = 1:40:400
     pause
-    [avg,pvector,data] = opca(k);
+    [perc, avg,pvector,data] = opca(k);
     figure()
-
+    
     imgsize = [112,92]; 
     pick = data(:,2);
 
@@ -19,4 +19,5 @@ for k = 1:40:400
     reconstr = pvector*w +avg;
     reconstr = reshape(reconstr,imgsize);
     imshow(reconstr,[]);
+    title(perc)
 end
