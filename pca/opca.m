@@ -1,4 +1,4 @@
-clear
+function [avg,pvector,data] = opca(k)
 % Calculate the most important vectors accroding to PCA princial
 imgsize = [112,92]; 
 data = imagedata();
@@ -10,11 +10,11 @@ L = A'*A;
 
 
 eigenvalues = eig(L);
-sum(eigenvalues(end-99:end))/sum(eigenvalues)
-vector = V(:,end-99:end);
+sum(eigenvalues(end-k+1:end))/sum(eigenvalues)
+vector = V(:,end-k+1:end);
 pvector = A*vector;
 
-for i = 1:100
+for i = 1:k
     pvector(:,i) = pvector(:,i)./norm(pvector(:,i));
 end
-    
+return 
