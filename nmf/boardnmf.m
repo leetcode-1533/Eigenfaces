@@ -84,7 +84,7 @@ mat1=repmat(index,m,1);  % spread index down
 mat2=repmat(index',1,m); % spread index right
 cons=mat1==mat2;
 
-if(sum(sum(cons~=consold))==0) % connectivity matrix has not changed
+if(sum(sum(cons~=consold))<=15) % connectivity matrix has not changed
 inc=inc+1;                     %accumulate count 
 else
 inc=0;                         % else restart count
