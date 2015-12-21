@@ -2,7 +2,7 @@ function database = imagedata()
 % Generate Image database
 dir = '~/Dropbox/att_faces';
 people = 1:40;
-subpeople = 1:10;
+subpeople = 1:2;
 imgsize = [112,92];
 
 database = zeros(imgsize(1)*imgsize(2),length(people)*length(subpeople));
