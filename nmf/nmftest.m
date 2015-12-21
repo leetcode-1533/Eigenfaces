@@ -1,15 +1,24 @@
+% Decomposion using NMF
+% Show base image
+% Project new faces
+
+% Decomposion using NMF
 clear;
 imgsize = [112,92];
 
 data = imagedata(40,3);
 [w,h] = boardnmf(data,80,1);
 
+% Normalization
 for i = 1:80
     w(:,i) = w(:,i)./norm(w(:,i));
 end
+
+% Show base image
 % show top 40 featured faces
 peekbase(w,imgsize,10,8);
 
+% Project new faces
 person_pick = 5;
 figure();
 subplot(1,2,1);
