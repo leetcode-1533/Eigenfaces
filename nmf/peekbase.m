@@ -1,8 +1,8 @@
-function peekbase(w,imgsize)
+function peekbase(w,imgsize,x,y)
 f = figure;
-for i = 1:40
+for i = 1:x*y
     figure(f);
     test = w(:,i);
     test = reshape(test,imgsize);
-    subplot(5,8,i);imshow(imcomplement(test),[])
+    subplot(x,y,i);imshow(imcomplement(test),[])
 end
