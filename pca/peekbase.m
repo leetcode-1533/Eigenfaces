@@ -1,11 +1,13 @@
-% run ocpa.m first
+% draw last 30 faces
+
 imgsize = [112,92]; 
-f = figure;
+[perc,avg,pvector,data,D] = opca(30);
 for i = 0:29
-    figure(f);
-    evalues = eig(L);
+    evalues = D(end-i,end-i);
+
     test = pvector(:,end-i);
     test = reshape(test,imgsize);
+    
     subplot(5,6,i+1);imshow((test),[])
-    title(num2str(evalues(end-i)));
+    title(num2str(evalues));
 end

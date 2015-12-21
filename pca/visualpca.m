@@ -1,9 +1,6 @@
-% figure()
-% test = eig(L);
-% plot(test);
-
+% Draw faces, recovered face, and their weight plot
 for k = 1:40:400
-    [perc, avg,pvector,data] = opca(k);
+    [perc, avg,pvector,data,~] = opca(k);
     f = figure();
     
     imgsize = [112,92]; 

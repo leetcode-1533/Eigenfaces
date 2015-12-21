@@ -1,4 +1,4 @@
-function [perc,avg,pvector,data] = opca(k)
+function [perc,avg,pvector,data,D] = opca(k)
 % Calculate the most important vectors accroding to PCA princial
 % perc: the percentage of selected eigenvalues
 % avg: the average face
