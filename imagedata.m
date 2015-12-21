@@ -1,6 +1,6 @@
 function database = imagedata()
 % Generate Image database
-dir = '~/Dropbox/MATLAB/eigenface/att_faces';
+dir = '~/Dropbox/att_faces';
 people = 1:40;
 subpeople = 1:10;
 imgsize = [112,92];
