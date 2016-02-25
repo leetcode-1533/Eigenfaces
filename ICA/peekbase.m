@@ -1,6 +1,5 @@
 function peekbase(w,imgsize,x,y)
 % Show base image
-% imgsize = [112,92]; 
 f = figure;
 for i = 1:x*y
     figure(f);
