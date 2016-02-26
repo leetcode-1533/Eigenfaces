@@ -1,3 +1,5 @@
+% conpare original weights and projection weights
+
 % Plot different people's face
 clear;
 imgsize = [112,92];
