@@ -5,7 +5,7 @@ clear;
 imgsize = [112,92];
 
 data = imagedata(40,3);
-[w,h] = boardnmf(data,80,0);
+[w,h] = boardnmf(data,80,0); % verbose = 0
 
 for i = 1:80
     w(:,i) = w(:,i)./norm(w(:,i));
