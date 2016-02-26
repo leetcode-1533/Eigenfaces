@@ -25,8 +25,16 @@ nmfdata = imagedata(40,3);
 pick = fulldata(:, 1);
 recs = []; % reconstruction container
 
+pca1 = [];
+nmf1 = [];
+ica1 = [];
+
+pca2 = [];
+nmf2 = [];
+ica2 = [];
+
 % Create Base
-for k = 1 : 5 : 51
+for k = 1 : 10 : 100
     pcabasebegin = tic;
     [perc, avg, pvector, ~] = opca(k, nmfdata);
     pcabasetime = toc(pcabasebegin);
@@ -38,7 +46,10 @@ for k = 1 : 5 : 51
     icabasebegin = tic;
     sbase = fastica(nmfdata', 'numOfIC', k, 'displayMode', 'off', 'verbose', 'off'); 
     icabasetime = toc(icabasebegin);
-
+    
+    pca1 = [pca1, pcabasetime];
+    nmf1 = [nmf1, nmfbasetime];
+    ica1 = [ica1, icabasetime];
     disp(sprintf('Create base of size %d, PCA: %f, NMF: %f, ICA: %f', k, pcabasetime, nmfbasetime, icabasetime));
 
     % reconstruction
@@ -61,10 +72,32 @@ for k = 1 : 5 : 51
     w_ica = pick' * inv_sbase; % related individual image weight
     ica_reconstr = w_ica * sbase;
     icarectime = toc(icarecbegin);
+    
+    pca2 = [pca2, pcarectime];
+    nmf2 = [nmf2, nmfrectime];
+    ica2 = [ica2, icarectime];
     disp(sprintf('Reconstruction of size %d, PCA: %f, NMF: %f, ICA: %f', k, pcarectime, nmfrectime, icarectime));
 
     % show images
     recs = [recs, pcareconstr, nmfreconstr, ica_reconstr'];
 end
 
+% creating base time consumation
+f = figure();
+hold on
+plot(pca1);
+plot(nmf1);
+plot(ica1);
+legend('pca', 'nmf', 'ica');
+% set(gca,'yscale','log')
 
+% projection time consumation
+f = figure();
+hold on
+plot(pca2);
+plot(nmf2);
+plot(ica2);
+legend('pca', 'nmf', 'ica');
+
+% reconstrution comparsion
+peekbase(recs, imgsize, 10, 3)
