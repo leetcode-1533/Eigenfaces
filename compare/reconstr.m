@@ -2,9 +2,6 @@
 
 %% PCA
 
-<<<<<<< HEAD
-% [perc, avg,pvector,data,~] = opca(k);
-=======
-% [perc, avg,pvector,data,~] = opca(k, data);
-[perc, avg, pvector, 
->>>>>>> COMP
+
+% [perc, avg,pvector,~] = opca(k, data);
+
