@@ -7,3 +7,5 @@ for i = 1:x*y
     test = reshape(test,imgsize);
     subplot(x,y,i);imshow(test,[])
 end
+
+saveas(f,[num2str(
