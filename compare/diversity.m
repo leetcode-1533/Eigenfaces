@@ -4,7 +4,7 @@ imgsize = [112,92];
 nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
 
 k = 10; % Dimension: adjustable
-num = 8; % output number: adjustable
+num = 8; % output samples: adjustable
 
 [perc, avg, pvector, ~] = opca(k, nmfdata);
 [w, ~] = boardnmf(nmfdata, k, 0);
