@@ -2,9 +2,9 @@ clear;
 
 imgsize = [112,92]; 
 
-images = imagedata(5,5);
+images  = imagedata(10,10);
 
-Z=fastica(images', 'numOfIC', 30, 'displayMode', 'off', 'verbose', 'off');  
-peekbase(Z', imgsize, 10,3);
-
-
+[A, W]=fastica(images', 'numOfIC', 9, 'displayMode', 'off', 'verbose', 'off');  
+s = W * images';
+ x = A * s;
+ peekbase(x', imgsize, 3, 3)
