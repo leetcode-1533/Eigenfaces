@@ -1,5 +1,5 @@
 % Draw faces, recovered face, and their weight plot
-images = imagedata(40, 10);
+images = imagedata(10, 10);
 pick = images(:, 1);
 imgsize = [112,92]; 
 
