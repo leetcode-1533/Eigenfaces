@@ -18,6 +18,7 @@
 % reconstr = w * sbase;
 %% cal
 % reconstruction compares
+clear
 imgsize = [112,92]; 
 
 fulldata = imagedata(40, 10);
