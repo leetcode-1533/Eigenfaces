@@ -8,11 +8,11 @@ imgsize = [112,92];
 
 database = zeros(imgsize(1)*imgsize(2),length(people)*length(subpeople));
 
-indexi = people - (people(1) - 1);
-indexj = subpeople - (subpeople(1) - 1);
+% indexi = people - (people(1) - 1);
+% indexj = subpeople - (subpeople(1) - 1);
 
-for i = indexi
-    for j = indexj
+for i = 1 : length(people)
+    for j = 1 : length(subpeople)
        
         indi = people(i);
         indj = subpeople(j);
