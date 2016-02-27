@@ -1,3 +1,4 @@
+% Deprecated
 function database = imagedata(pep,epep)
 % Generate Image database
 dir = '~/Dropbox/att_faces';
