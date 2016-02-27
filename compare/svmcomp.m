@@ -1,5 +1,6 @@
 function svmpred = svmcomp(train_people, train_label, test_people, test_label, basesize) 
     % NMF, ICA, PCA Base
+    % calculate svm prediction using NMF, ICA, PCA
 
     nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
     [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, basesize); % output base adjustable

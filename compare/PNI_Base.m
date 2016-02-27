@@ -1,5 +1,5 @@
 function [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, k)
-
+% pca, ica, nmf base calculation
 [perc, pavg, pvector, ~] = opca(k, nmfdata);
 
 

@@ -1,3 +1,4 @@
+% How DCT is used?
 % Dct Without Compression
 RGB = imread('autumn.tif');
 I = rgb2gray(RGB);

@@ -1,3 +1,4 @@
+% reconstruction script
 %% PCA Usage
 % [perc, avg, pvector, ~] = opca(5, data);
 %  weight = pvector'*(testdata(:,i)-avg);

@@ -1,4 +1,8 @@
-n = 8; % ratio adjustable
+function ans = svm_result(n, basesize)
+% do a comparsion in between dct and original
+
+% n = 8; % ratio adjustable
+% basesize: project size per method, less than 120 
 numofpeople = 40;
 numofperspective = 10;
 imgsize = [112,92];
@@ -42,7 +46,7 @@ test_label = test_label(perm2);
 dct_test_people = dct_test_people(:, perm2);
 dct_test_label = dct_test_label(perm2);
     
-dct = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, 30);
-ori = svmcomp(train_people, train_label, test_people, test_label, 30);
-ans = [ori, dct]
+dct = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, basesize);
+ori = svmcomp(train_people, train_label, test_people, test_label, basesize);
+ans = [ori, dct];
 

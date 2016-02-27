@@ -1,3 +1,4 @@
+% Diversity part testing script
 clear
 imgsize = [112,92]; 
 

@@ -1,6 +1,6 @@
 function database = dct_imagedata(pep,epep)
 % Generate Image database
-% Imagedata2 support range selction, instead of starting from 1
+% read in as dct
 dir = '~/Dropbox/att_faces';
 people = pep;
 subpeople = epep;
