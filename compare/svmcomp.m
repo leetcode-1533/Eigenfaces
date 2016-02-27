@@ -1,4 +1,4 @@
-clear 
+% clear 
 t = 5;
 n = 8;
 numofpeople = 40;
@@ -30,10 +30,14 @@ perm2 = randperm(size(test_people,2));
 test_people = test_people(:, perm2);
 test_label = test_label(perm2);
 
-% NMF, ICA, PCA
+% NMF, ICA, PCA Base
 
 nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
-[pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, 10);
-[pcaweight, nmfweight, icaweight] = 
+% [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, 10);
 
 
+[train_p, train_n, train_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, train_people);
+[test_p, test_n, test_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, test_people);
+
+model = svmtrain(train_label, train_i');
+[predicted_label, accur, ~] = svmpredict(test_label, test_i', model);
