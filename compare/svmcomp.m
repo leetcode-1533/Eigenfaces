@@ -33,21 +33,22 @@ function svmpred = svmcomp()
     % NMF, ICA, PCA Base
 
     nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
-    [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, 30);
+    [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, 30); % output base adjustable
 
 
     [train_p, train_n, train_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, train_people);
     [test_p, test_n, test_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, test_people);
 
-    train = train_i;
-    test = test_i;
+    % Test
+    train = train_p;
+    test = test_p;
     [re_train, ps] = mapminmax(train); 
     re_test = mapminmax.apply(test,ps);
     model = svmtrain(train_label, re_train');
     [predicted_label, accurp, ~] = svmpredict(test_label, re_test', model);
 
-    train = train_i;
-    test = test_i;
+    train = train_n;
+    test = test_n;
     [re_train, ps] = mapminmax(train); 
     re_test = mapminmax.apply(test,ps);
     model = svmtrain(train_label, re_train');
