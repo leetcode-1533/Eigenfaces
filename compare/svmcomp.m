@@ -40,26 +40,41 @@ function svmpred = svmcomp()
     [test_p, test_n, test_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, test_people);
 
     % Test
+    
     train = train_p;
     test = test_p;
-    [re_train, ps] = mapminmax(train); 
-    re_test = mapminmax.apply(test,ps);
-    model = svmtrain(train_label, re_train');
-    [predicted_label, accurp, ~] = svmpredict(test_label, re_test', model);
+    [re_train_p, ps] = mapminmax(train); 
+    re_test_p = mapminmax.apply(test,ps);
+    model = svmtrain(train_label, re_train_p');
+    [predicted_label, accurp, ~] = svmpredict(test_label, re_test_p', model);
 
     train = train_n;
     test = test_n;
-    [re_train, ps] = mapminmax(train); 
-    re_test = mapminmax.apply(test,ps);
-    model = svmtrain(train_label, re_train');
-    [predicted_label, accurn, ~] = svmpredict(test_label, re_test', model);
-
+    [re_train_n, ps] = mapminmax(train); 
+    re_test_n = mapminmax.apply(test,ps);
+    model = svmtrain(train_label, re_train_n');
+    [predicted_label, accurn, ~] = svmpredict(test_label, re_test_n', model);
+    
     train = train_i;
-    test = test_i;
-    [re_train, ps] = mapminmax(train); 
-    re_test = mapminmax.apply(test,ps);
-    model = svmtrain(train_label, re_train');
-    [predicted_label, accuri, ~] = svmpredict(test_label, re_test', model);
-    svmpred = [accurp(1), accurn(1), accuri(1)];
-
+    test = test_i;  
+    [re_train_i, ps] = mapminmax(train); 
+    re_test_i = mapminmax.apply(test,ps);
+    model = svmtrain(train_label, re_train_i');
+    [predicted_label, accuri, ~] = svmpredict(test_label, re_test_i', model);
+    
+    
+    train = [re_train_p; re_train_n; re_train_i];
+    test = [re_test_p; re_test_n; re_test_i];
+    model = svmtrain(train_label, train');
+    [predicted_label, accurall1, ~] = svmpredict(test_label, test', model);
+    
+    train = [train_p; train_n; train_i];
+    test = [test_p; test_n; test_i];
+    [re_train_i, ps] = mapminmax(train); 
+    re_test_i = mapminmax.apply(test,ps);
+    model = svmtrain(train_label, re_train_i');
+    [predicted_label, accurall2, ~] = svmpredict(test_label, re_test_i', model);
+    
+    
+    svmpred = [accurp(1), accurn(1), accuri(1), accurall1(1), accurall2(1)];
 
