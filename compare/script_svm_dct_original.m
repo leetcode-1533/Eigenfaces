@@ -1,5 +1,5 @@
 % do a comparsion in between dct and original
-
+clear
 n = 8; % ratio adjustable
 basesize = 30; %: adjustable
 % basesize: project size per method, less than 120 
@@ -46,7 +46,7 @@ test_label = test_label(perm2);
 dct_test_people = dct_test_people(:, perm2);
 dct_test_label = dct_test_label(perm2);
     
-dct = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, basesize);
-ori = svmcomp(train_people, train_label, test_people, test_label, basesize);
+[dct, dctpredicted_labelp, dctpredicted_labeli]  = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, basesize);
+[ori, predicted_labelp, predicted_labeln,predicted_labeli] = svmcomp(train_people, train_label, test_people, test_label, basesize);
 answer = [ori, dct];
 

@@ -1,4 +1,4 @@
-function svmpred = dct_svmcomp(train_people, train_label, test_people, test_label, basesize) 
+function [svmpred, predicted_labelp, predicted_labeli] = dct_svmcomp(train_people, train_label, test_people, test_label, basesize) 
     % ICA, PCA Base
     % doesn't support NMF
 
@@ -16,7 +16,7 @@ function svmpred = dct_svmcomp(train_people, train_label, test_people, test_labe
     [re_train_p, ps] = mapminmax(train); 
     re_test_p = mapminmax.apply(test,ps);
     model = svmtrain(train_label, re_train_p');
-    [predicted_label, accurp, ~] = svmpredict(test_label, re_test_p', model);
+    [predicted_labelp, accurp, ~] = svmpredict(test_label, re_test_p', model);
 
     
     train = train_i;
@@ -24,7 +24,7 @@ function svmpred = dct_svmcomp(train_people, train_label, test_people, test_labe
     [re_train_i, ps] = mapminmax(train); 
     re_test_i = mapminmax.apply(test,ps);
     model = svmtrain(train_label, re_train_i');
-    [predicted_label, accuri, ~] = svmpredict(test_label, re_test_i', model);
+    [predicted_labeli, accuri, ~] = svmpredict(test_label, re_test_i', model);
     
     
     svmpred = [accurp(1), accuri(1)];
