@@ -1,9 +1,11 @@
-function [svmpred, predicted_labelp, predicted_labeli] = dct_svmcomp(train_people, train_label, test_people, test_label, basesize) 
+function [svmpred, predicted_labelp, predicted_labeli] = dct_svmcomp(train_people, train_label, test_people, test_label, argcell) 
     % ICA, PCA Base
     % doesn't support NMF
+ 
+    pvector = argcell{1};
+    pavg = argcell{2};
+    inv_sbase = argcell{3};
 
-    nmfdata = dct_imagedata(1:20,1:6); % triaing sets: adjustable
-    [pvector, pavg, inv_sbase] = PI_Base(nmfdata, basesize); % output base adjustable
 
 
     [train_p, ~, train_i] = PNI_Projection(pvector, pavg, 0, inv_sbase, train_people);

@@ -1,10 +1,11 @@
-function [svmpred, predicted_labelp, predicted_labeln,predicted_labeli]  = svmcomp(train_people, train_label, test_people, test_label, basesize) 
+function [svmpred, predicted_labelp, predicted_labeln,predicted_labeli]  = svmcomp(train_people, train_label, test_people, test_label, argcell) 
     % NMF, ICA, PCA Base
     % calculate svm prediction using NMF, ICA, PCA
 
-    nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
-    [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, basesize); % output base adjustable
-
+    pvector = argcell{1};
+    pavg = argcell{2};
+    wpinv = argcell{3};
+    inv_sbase = argcell{4};
 
     [train_p, train_n, train_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, train_people);
     [test_p, test_n, test_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, test_people);

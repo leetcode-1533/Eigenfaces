@@ -1,4 +1,4 @@
-function answer = svm_dct_original(n, basesize)
+function answer = svm_original_dct(n, basesize)
 % do a comparsion in between dct and original
 
 % n = 8; % ratio adjustable
@@ -45,8 +45,18 @@ test_people = test_people(:, perm2);
 test_label = test_label(perm2);
 dct_test_people = dct_test_people(:, perm2);
 dct_test_label = dct_test_label(perm2);
-    
-[dct, ~, ~] = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, basesize);
-[ori, ~, ~, ~] = svmcomp(train_people, train_label, test_people, test_label, basesize);
+
+nmfdata = imagedata2(1:20,1:6); % triaing sets: adjustable
+[pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, basesize); % Original
+argcell = {pvector, pavg, wpinv, inv_sbase};
+
+dct_nmfdata = dct_imagedata(1:20,1:6); % triaing sets: adjustable
+[pvector, pavg, inv_sbase] = PI_Base(dct_nmfdata, basesize); % SVM
+svm_argcell = {pvector, pavg, inv_sbase};
+
+
+[ori, ~, ~, ~] = svmcomp(train_people, train_label, test_people, test_label, argcell);
+[dct, ~, ~] = dct_svmcomp(dct_train_people, dct_train_label, dct_test_people, dct_test_label, svm_argcell);
+
 answer = [ori, dct];
 
