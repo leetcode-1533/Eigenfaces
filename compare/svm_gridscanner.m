@@ -16,6 +16,5 @@ for iterbase = basesize
     DCTPCA = [DCTPCA, pni_od(:, 4)];
     DCTICA = [DCTICA, pni_od(:, 5)];
 end
-% mesh(xloc, yloc, PCA);
     
     
