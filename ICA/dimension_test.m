@@ -1,20 +1,21 @@
 % Draw faces, recovered face, and their weight plot
-images = imagedata(10, 10);
+images = imagedata(13, 10);
 pick = images(:, 1);
 imgsize = [112,92]; 
 
-for k = 1:40:400
+for k = 1: 30 : 121
 
+% k = 20
     sbase = fastica(images', 'numOfIC', k, 'displayMode', 'off', 'verbose', 'off');  
     
     for ii = 1 : k
-        reversev = sbase(:, ii);
+        reversev = sbase(ii, :);
         maxpick = max(reversev);
         minpick = min(reversev);
         avgpick = mean(reversev);
 
         if(abs(avgpick - maxpick) > abs(avgpick - minpick))
-            sbase(:, ii) = -reversev;
+            sbase(ii, :) = -reversev;
         end
     end
     
@@ -34,6 +35,8 @@ for k = 1:40:400
     subplot(1,3,3)
     plot(w)
     saveas(f,[num2str(k),'.png']);
+    
+%     peekbase(sbase', imgsize, 4, 5);
     
     
 end

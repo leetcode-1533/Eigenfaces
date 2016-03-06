@@ -19,7 +19,8 @@
 % reconstr = w * sbase;
 %% cal
 % reconstruction compares
-clear
+clear;
+
 imgsize = [112,92]; 
 
 fulldata = imagedata(40, 10);
@@ -47,6 +48,16 @@ for k = 1 : 10 : 100
 
     icabasebegin = tic;
     sbase = fastica(nmfdata', 'numOfIC', k, 'displayMode', 'off', 'verbose', 'off'); 
+    for ii = 1 : k
+        reversev = sbase(ii, :);
+        maxpick = max(reversev);
+        minpick = min(reversev);
+        avgpick = mean(reversev);
+
+        if(abs(avgpick - maxpick) > abs(avgpick - minpick))
+            sbase(ii, :) = -reversev;
+        end
+    end
     icabasetime = toc(icabasebegin);
     
     pca1 = [pca1, pcabasetime];

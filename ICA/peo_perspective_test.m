@@ -5,6 +5,17 @@ imgsize = [112,92];
 
 data = imagedata(40,3);
 sbase = fastica(data', 'numOfIC', 80, 'displayMode', 'off', 'verbose', 'off'); 
+    for ii = 1 : 80
+        reversev = sbase(ii, :);
+        maxpick = max(reversev);
+        minpick = min(reversev);
+        avgpick = mean(reversev);
+
+        if(abs(avgpick - maxpick) > abs(avgpick - minpick))
+            sbase(ii, :) = -reversev;
+        end
+    end
+    
 inv_sbase = pinv(sbase);
 
 %% different people

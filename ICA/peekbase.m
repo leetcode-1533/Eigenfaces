@@ -5,5 +5,6 @@ for i = 1:x*y
     figure(f);
     test = w(:,i);
     test = reshape(test,imgsize);
-    subplot(x,y,i);imshow(test,[])
+    subplot(x,y,i);
+    imshow(test,[])
 end
