@@ -1,3 +1,4 @@
+% Deprecated
 %% Choose between Original and DCT
 % original
 inputcase = predicted_labeln;

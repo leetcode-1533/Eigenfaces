@@ -1,4 +1,3 @@
-% deprecated
 % do a comparsion in between dct and original
 clear
 n = 8; % ratio adjustable

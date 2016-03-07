@@ -14,6 +14,16 @@ for i = 1 : k
 end
 
 sbase = fastica(nmfdata', 'numOfIC', k, 'displayMode', 'off', 'verbose', 'off');
+for ii = 1 : k
+    reversev = sbase(ii, :);
+    maxpick = max(reversev);
+    minpick = min(reversev);
+    avgpick = mean(reversev);
+
+    if(abs(avgpick - maxpick) < abs(avgpick - minpick))
+        sbase(ii, :) = -reversev;
+    end
+end
 
 % starting projection
 pick1 = imagedata2(1:num, 1:1); % different people
