@@ -47,7 +47,7 @@ for k = 1 : 10 : 100
     nmfbasetime = toc(nmfbasebegin);
 
     icabasebegin = tic;
-    sbase = fastica(nmfdata', 'numOfIC', k, 'displayMode', 'off', 'verbose', 'off'); 
+    sbase = fastica(nmfdata', 'numOfIC', k, 'g', 'tanh', 'verbose', 'off');  
     for ii = 1 : k
         reversev = sbase(ii, :);
         maxpick = max(reversev);
