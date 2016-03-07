@@ -1,15 +1,20 @@
 
 clear 
-    I1= im2double(imread ('input1.jpg'));          
-    I2= im2double(imread ('input2.jpg')); 
-    I3= im2double(imread ('input3.jpg')); 
-    
-    imgsize = size(I1); 
+  
+imgsize = [112,92]; 
 
-    
- 
+im1 = imread('cameraman.tif');
+im1 = imresize(im1, imgsize);
+im2 = imread('moon.tif');
+im2 = imresize(im2, imgsize);
+im3 = imread('AT3_1m4_06.tif');
+im3 = imresize(im3, imgsize);
 
-    S = [I1(:), I2(:), I3(:)]';                           
+imgs = [im2double(im1(:)), im2double(im2(:)), im2double(im3(:))];
+        
+
+
+    S = imgs';                           
     Sweight=rand(size(S,1));              
     MixedS=Sweight*S;       
     
@@ -70,16 +75,13 @@ clear
     end 
     ICAedS=B'*Q*MixedS_bak;                    
     ICAedS_bak=ICAedS; 
-    ICAedS=abs(55*ICAedS); 
+    ICAedS=abs(ICAedS); 
     
     is1=reshape(ICAedS(1,:),imgsize); 
     is2=reshape(ICAedS(2,:),imgsize); 
     is3=reshape(ICAedS(3,:),imgsize); 
-    
-I1_icaed =uint8 (round(is1)); 
-I2_icaed =uint8 (round(is2)); 
-I3_icaed =uint8 (round(is3)); 
-subplot(3,3,7),imshow(I1_icaed),title('Restored1'); 
-subplot(3,3,8),imshow(I2_icaed),title('Restored2');
-subplot(3,3,9),imshow(I3_icaed),title('Restored3');
+ 
+subplot(3,3,7),imshow(is1, []),title('Restored1'); 
+subplot(3,3,8),imshow(is2, []),title('Restored2');
+subplot(3,3,9),imshow(is3, []),title('Restored3');
 
