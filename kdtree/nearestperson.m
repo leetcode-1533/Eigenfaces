@@ -13,11 +13,16 @@ imgdata = [];
 
 retable = zeros(NF, 10); % Assume have 10 people, which is impossible
 % images = cell(NF,1);
-for k = 3 : NF  
+for k = 4 : NF  
+    if rem(k, 1000) == 0
+        k
+    end
     me = imread(fullfile('/Users/y1275963/Desktop/imgs', file(k).name));
     FDetect = vision.CascadeObjectDetector;
     BB = step(FDetect, me);
     for item = 1 : size(BB, 1) 
+
+        
         i2 = imcrop(me, BB(item, :));
         i2 = rgb2gray(i2);
         i2 = imresize(i2, imgsize);
