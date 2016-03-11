@@ -36,8 +36,6 @@ for k = 4 : NF
 end
 
 
-[pw, ~, ~] = PNI_Projection(pvector, pavg, 0, 0, pcadata);
-mdl = KDTreeSearcher(pw');
 
 
 
