@@ -12,8 +12,8 @@ elm_num = size(re, 2);
 matweights  = repmat(weights(vrange, :), 1, elm_num);
 re = re .* matweights;
 
-mdl = KDTreeSearcher(re');
-mdl.Distance = 'euclidean';
+% mdl = KDTreeSearcher(re');
+% mdl.Distance = 'mahalanobis';
 
 % search
 me = imread(target);
@@ -27,8 +27,8 @@ i2w = PNI_Projection(pvector, pavg, 0, 0, i2(:));
 mapi2w = mapminmax('apply', i2w(vrange), msetting);
 w_mapi2w = mapi2w .* weights(vrange, :);
 
-[res, Distance] = knnsearch(mdl, w_mapi2w');
-Distance
+% [res, Distance] = knnsearch(mdl, w_mapi2w');
+[res, dist] = knnsearch(re', w_mapi2w', 'Distance', 'jaccard');
 % show
 % for idx = res{1}
     [x, ~] = find(retable == res);
