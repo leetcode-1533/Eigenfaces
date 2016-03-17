@@ -3,7 +3,7 @@ imgsize = [112,92];
 
 pcadata = imagedata2(1:40, 1:10);
 
-[~, pavg, pvector, ~] = opca(30, pcadata);
+[~, pavg, pvector, ~, weights] = opca_eig(30, pcadata);
 
 
 

@@ -3,9 +3,10 @@ target = '/Users/y1275963/Pictures/Pedro_Almodovar.jpg';
 vrange = 1:29;
 
 nimgdata = imgdata(vrange, :);
+[re, msetting] = mapminmax(nimgdata);
 % [pw, ~, ~] = PNI_Projection(pvector, pavg, 0, 0, imgdata');
 mdl = KDTreeSearcher(nimgdata');
-mdl.Distance = 'chebychev';
+mdl.Distance = 'euclidean';
 
 % search
 me = imread(target);
@@ -16,10 +17,11 @@ i2 = rgb2gray(i2);
 i2 = imresize(i2, imgsize);
 i2 = double(i2);
 i2w = PNI_Projection(pvector, pavg, 0, 0, i2(:));
+mapi2w = mapminmax.apply(i2w(vrange)', msetting);
+res = rangesearch(mdl, mapi2w, 4000);
 
-% idx = knnsearch(mdl, i2w(vrange)');
- res = rangesearch(mdl, i2w(vrange)', 4000);
- for idx = res{1}
+% show
+for idx = res{1}
     [x, ~] = find(retable == idx);
     k = 2 + x;
     similar = imread(fullfile('/Users/y1275963/Desktop/imgs', file(k).name));
