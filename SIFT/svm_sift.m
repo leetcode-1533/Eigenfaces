@@ -6,7 +6,7 @@ imgsize = [112,92];
 numofpeople = 40;
 numofperspective = 10;
 
-cloc = sift_dim(10);
+cloc = sift_dim(4);
    
 for iter = ratiorange
     
@@ -57,5 +57,5 @@ for iter = ratiorange
     end
     re_test = mapminmax.apply(double(svm_sift_test), ps);
      
-    [predicted_label, accur, ~] = svmpredict(test_label, re_test', model);      
+    [predicted_labeln, accur, ~] = svmpredict(test_label, re_test', model);      
 end
