@@ -6,8 +6,8 @@ imgsize = [112,92];
 numofpeople = 40;
 numofperspective = 10;
 
-
-    
+cloc = sift_dim(10);
+   
 for iter = ratiorange
     
     train_people = zeros(imgsize(1) * imgsize(2), iter * numofpeople);
@@ -15,13 +15,13 @@ for iter = ratiorange
     test_people = [];
     test_label = [];
 
-    for i = 1 : numofpeople
+    for ii = 1 : numofpeople
         trs = randperm(numofperspective);
 
-        train_people(:, ((i - 1) * iter + 1) : i * iter)  = imagedata2(i, trs(1 : iter));
-        train_label(((i - 1) * iter + 1) : i * iter,  1) =  repmat(i, iter, 1);
-        test_people = [test_people, imagedata2(i, trs(iter+1 : numofperspective))];
-        test_label = [test_label; repmat(i, numofperspective - iter, 1)];
+        train_people(:, ((ii - 1) * iter + 1) : ii * iter)  = imagedata2(ii, trs(1 : iter));
+        train_label(((ii - 1) * iter + 1) : ii * iter,  1) =  repmat(ii, iter, 1);
+        test_people = [test_people, imagedata2(ii, trs(iter+1 : numofperspective))];
+        test_label = [test_label; repmat(ii, numofperspective - iter, 1)];
     end
 
     % shuffle
@@ -32,5 +32,30 @@ for iter = ratiorange
     perm2 = randperm(size(test_people,2));
     test_people = test_people(:, perm2);
     test_label = test_label(perm2);
+    
+    svm_sift_train = [];
+    for ii = 1:size(train_people, 2)
+        peo = train_people(:, ii);
+        peo = im2single(peo./255);
+        peo = reshape(peo, imgsize);
 
+        [~, d] =  vl_sift(peo,'frames', cloc) ;
+        svm_sift_train = [svm_sift_train, d(:)]; 
+    end
+    [re_train, ps] = mapminmax(double(svm_sift_train));
+    
+    model = svmtrain(train_label, re_train');
+    
+    svm_sift_test = [];
+    for ii = 1:size(test_people, 2)
+        peo = test_people(:, ii);
+        peo = im2single(peo./255);
+        peo = reshape(peo, imgsize);
+
+        [~, d] =  vl_sift(peo,'frames', cloc) ;
+        svm_sift_test = [svm_sift_test, d(:)]; 
+    end
+    re_test = mapminmax.apply(double(svm_sift_test), ps);
+     
+    [predicted_label, accur, ~] = svmpredict(test_label, re_test', model);      
 end
