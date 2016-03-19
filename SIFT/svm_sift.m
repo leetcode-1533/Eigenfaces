@@ -63,7 +63,7 @@ for loci = 1 : length(locrange)
         re_test = mapminmax.apply(double(svm_sift_test), ps);
 
         [predicted_labeln, accur, ~] = svmpredict(test_label, re_test', model);
-        eachlearnrate = [eachlearnrate, accur];
+        eachlearnrate = [eachlearnrate, accur(1)];
     end
     re = [re;eachlearnrate];
     
