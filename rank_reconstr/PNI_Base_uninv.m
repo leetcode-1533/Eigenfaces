@@ -2,11 +2,6 @@ function [pvector, pavg, w, sbase] = PNI_Base_uninv(nmfdata, k)
 % pca, ica, nmf base calculation
 [perc, pavg, pvector, ~] = opca(k, nmfdata);
 
-for i = 1:k
-    pvector(:,i) = pvector(:,i)./norm(pvector(:,i));
-end
-
-
 [w, ~] = boardnmf(nmfdata, k, 0);
 for i = 1 : k
     w(:,i) = w(:,i)./norm(w(:,i));
@@ -21,9 +16,9 @@ for ii = 1 : k
     avgpick = mean(reversev);
 
     if(abs(avgpick - maxpick) < abs(avgpick - minpick))
+        ii
         sbase(ii, :) = -reversev;
     end
-    
-    sbase(ii,:) = sbase(ii,:)./norm(sbase(ii,:));
 end
+sbase = sbase';
 

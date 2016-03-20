@@ -4,8 +4,8 @@ function [re, idx] = rankaccto(input, base, rule)
 
 
 % construct disance
-dis_array = zeros(size(input,2),1);
-for item = 1:size(input,2)
+dis_array = zeros(size(input,1),1);
+for item = 1:size(input,1)
     comp = [input(item,:);base];
     dis = pdist(comp,rule);
     
@@ -17,3 +17,7 @@ input = [dis_array, input];
 
 %rank 
 [re, idx] = sortrows(input);
+
+%recovery
+re(:,1) = [];
+
