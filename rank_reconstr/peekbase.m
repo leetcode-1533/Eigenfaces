@@ -6,5 +6,5 @@ for i = 1:x*y
     test = w(:,i);
     test = reshape(test,imgsize);
     subplot(x,y,i);
-    imshow(test)
+    imshow(test, [])
 end
