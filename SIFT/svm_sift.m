@@ -1,12 +1,12 @@
 clear 
 
-ratiorange = 1:9;
+ratiorange = 5:5;
 
 imgsize = [112,92]; 
 numofpeople = 40;
 numofperspective = 10;
 
-locrange = 2 : 5 :50;
+locrange = 3:3;
 
 re = [];
 for loci = 1 : length(locrange)
