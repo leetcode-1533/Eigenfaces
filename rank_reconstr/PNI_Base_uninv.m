@@ -1,7 +1,7 @@
 function [pvector, pavg, w, sbase] = PNI_Base_uninv(nmfdata, k)
 % pca, ica, nmf base calculation
 [perc, pavg, pvector, ~] = opca(k, nmfdata);
-pavg = mapminmax(pavg');
+pavg = mapminmax(pavg', 0, 1);
 pavg = pavg';
 
 [pv,~] = mapminmax(pvector', 0, 1);
