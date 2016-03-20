@@ -4,84 +4,70 @@ pick = nmfdata(:, 1);
 imgsize = [112,92]; 
 
 % Base Creation : Most Time consuming
-[pvector, pavg, nmfw, sbase] = PNI_Base(nmfdata, 30); % Original
-nmfw = nmfw';
+[pbase, pavg, nmfbase, icabase] = PNI_Base_uninv(nmfdata, 30); % Original
 
-% peekbase(pvector, imgsize, 5,6);
-% peekbase(nmfw, imgsize, 5, 6);
-% peekbase(sbase, imgsize, 5, 6);
-% 
 % figure()
 % hold on
-% plot(max(pvector),'r');
-% plot(min(pvector),'r');
+% plot(max(pbase),'r');
+% plot(min(pbase),'r');
 % 
-% plot(max(nmfw),'b');
-% plot(min(nmfw),'b');
+% plot(max(nmfbase),'b');
+% plot(min(nmfbase),'b');
 % 
-% plot(max(sbase), 'g');
-% plot(min(sbase),'g');
-
-
-[pv,~] = mapminmax(pvector', 0, 1);
-pv = pv';
-[nm,~] = mapminmax(nmfw', 0, 1);
-nm = nm';
-sb = mapminmax(sbase', 0, 1);
-sb = sb';
-% peekbase(pv, imgsize, 5,6);
-% peekbase(nm, imgsize, 5,6);
-% peekbase(sb, imgsize, 5,6);
+% plot(max(icabase), 'g');
+% plot(min(icabase),'g');
 % 
+% inv_pca = pbase';
+% inv_nmf = pinv(nmfbase);
+% inv_ica = pinv(icabase);
 % figure()
 % hold on
-% plot(max(pv),'r');
-% plot(min(pv),'r');
+% plot(max(inv_pca'),'r');
+% plot(min(inv_pca'),'r');
 % 
-% plot(max(nm),'b');
-% plot(min(nm),'b');
+% plot(max(inv_nmf'),'b');
+% plot(min(inv_nmf'),'b');
 % 
-% plot(max(sb), 'g');
-% plot(min(sb),'g');
+% plot(max(inv_ica'), 'g');
+% plot(min(inv_ica'),'g');
 
-pavg = mapminmax(pavg', 0, 1); % per row
-
-load('~/Dropbox/mat/rank_.mat');
-opts = {'euclidean', 'seuclidean', 'cityblock', 'minkowski', 'chebychev', 'cosine', 'correlation', 'spearman', 'hamming', 'jaccard'};
-% 'error with mahalanobis',
-
-% pca at dim 5
-[ref, idx] = rankaccto(pv', pavg, opts{1});
-pcacol = [];
-for ii = 1:length(opts)
-    [test, idx] = rankaccto(ref, pavg, opts{ii});
-%     bar(idx);
-%     title(opts{ii});
-    sel_base = test(1:5, :);
-    
-    pick = nmfdata(:, 1);
-    
-    pcaweight = sel_base * (pick - pavg');
-    pcareconstr = sel_base'*pcaweight + pavg';
-    
-    pcacolumn = [pcacol, pcareconstr];
-end
-
-% nmf at dim 5
-[ref, idx] = rankaccto(nm', pavg, opts{1});
-
-for ii = 1:length(opts)
-    pause
-    [test, idx] = rankaccto(ref, pavg, opts{ii});
-%     bar(idx);
-%     title(opts{ii});
-    sel_base = test(1:5, :);
-    
-    pick = nmfdata(:, 1);
-    
-    w_nmf = nm*pick;
-    w_rec = w*w_nmf;
-end
+% pavg = mapminmax(pavg', 0, 1); % per row
+% 
+% opts = {'euclidean', 'seuclidean', 'cityblock', 'minkowski', 'chebychev', 'cosine', 'correlation', 'spearman', 'hamming', 'jaccard'};
+% % 'error with mahalanobis',
+% 
+% % pca at dim 5
+% [ref, idx] = rankaccto(pv', pavg, opts{1});
+% pcacol = [];
+% for ii = 1:length(opts)
+%     [test, idx] = rankaccto(ref, pavg, opts{ii});
+% %     bar(idx);
+% %     title(opts{ii});
+%     sel_base = test(1:5, :);
+%     
+%     pick = nmfdata(:, 1);
+%     
+%     pcaweight = sel_base * (pick - pavg');
+%     pcareconstr = sel_base'*pcaweight + pavg';
+%     
+%     pcacolumn = [pcacol, pcareconstr];
+% end
+% 
+% % nmf at dim 5
+% [ref, idx] = rankaccto(nm', pavg, opts{1});
+% 
+% for ii = 1:length(opts)
+%     pause
+%     [test, idx] = rankaccto(ref, pavg, opts{ii});
+% %     bar(idx);
+% %     title(opts{ii});
+%     sel_base = test(1:5, :);
+%     
+%     pick = nmfdata(:, 1);
+%     
+%     w_nmf = nm*pick;
+%     w_rec = w*w_nmf;
+% end
 
 
 % map_avg = mapminmax(pavg');
