@@ -23,4 +23,4 @@ for basesize = 1:5:60
     nmf_all = [nmf_all, nmfcol];
 end
 
-peekbase(nmf_all, imgsize, 10, 12);
+peekbase(nmf_all, imgsize, 12, 10);

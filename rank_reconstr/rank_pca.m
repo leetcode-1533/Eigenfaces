@@ -3,7 +3,7 @@ pick = mapminmax(pick', 0, 1);
 pick = pick';
 
 % pca at dim 5
-[ref, idx] = rankaccto(pbase', pick', opts{1});
+[ref, idx] = rankaccto(pbase', pavg, opts{1});
 pca_all = [];
 for basesize = 1:5:60
     pcacol = [];
@@ -21,4 +21,4 @@ for basesize = 1:5:60
     pca_all = [pca_all, pcacol];
 end
 
-peekbase(pca_all, imgsize, 10, 12);
+peekbase(pca_all, imgsize, 12, 10);

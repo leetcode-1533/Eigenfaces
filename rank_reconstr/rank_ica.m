@@ -3,9 +3,6 @@ pick = nmfdata(:, 1);
 pick = mapminmax(pick', 0, 1);
 pick = pick';
 
-testbase = nmfdata(:,2);
-
-
 % 'error with mahalanobis',
 
 ica_inv = pinv(icabase);
@@ -16,7 +13,7 @@ ica_all = [];
 for basesize = 1:5:60
     icacol = [];
     for ii = 1:length(opts)
-        [test, idx] = rankaccto(ica_inv, pick', opts{ii});
+        [test, idx] = rankaccto(ica_inv, pavg, opts{ii});
     %     bar(idx);
     %     title(opts{ii});
         sel_base = icabase(:, idx(1:basesize));
@@ -31,4 +28,4 @@ for basesize = 1:5:60
     ica_all = [ica_all, icacol];
 end
 
-peekbase(ica_all, imgsize, 10, 12);
+peekbase(ica_all, imgsize, 12, 10);
