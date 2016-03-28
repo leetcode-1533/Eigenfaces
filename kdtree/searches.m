@@ -1,5 +1,5 @@
 clear 
-load '~/Dropbox/lfw2.mat'
+load '~/Dropbox/mat/lfw2.mat'
 
 target = '/Users/y1275963/Pictures/images-1.jpg';
 
@@ -42,4 +42,7 @@ w_mapi2w = mapi2w .* weights(vrange, :);
     subplot(1, 2, 2)
     imshow(similar, []);
     title(file(k).name);
+    
+iax = 1; % Or whichever
+subaxis(4, 6, iax, 'sh', 0.03, 'sv', 0.01, 'padding', 0, 'margin', 0);    
 % end
