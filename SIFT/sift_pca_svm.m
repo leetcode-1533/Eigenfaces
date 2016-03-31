@@ -1,6 +1,6 @@
 clear 
 
-ratiorange = 5:5;
+ratiorange = 3:8;
 
 imgsize = [112,92]; 
 numofpeople = 40;
@@ -9,7 +9,8 @@ numofperspective = 10;
 locrange = 3:3;
 
 re = [];
-    cloc = sift_dim(locrange(loci));
+    cloc = sift_dim(20);
+    [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
     
     eachlearnrate = [];
     for iter = ratiorange
@@ -40,11 +41,11 @@ re = [];
         svm_sift_train = [];
         for ii = 1:size(train_people, 2)
             peo = train_people(:, ii);
-            peo = im2single(peo./255);
-            peo = reshape(peo, imgsize);
-
-            [~, d] =  vl_sift(peo,'frames', cloc) ;
-            svm_sift_train = [svm_sift_train, d(:)]; 
+            peo = calibrate_img(peo, imgsize);
+            raw_patch = sift_patches(peo, cloc);
+            sift_pca_weight = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
+            
+            svm_sift_train = [svm_sift_train, sift_pca_weight(:)]; 
         end
         [re_train, ps] = mapminmax(double(svm_sift_train));
 
@@ -53,16 +54,14 @@ re = [];
         svm_sift_test = [];
         for ii = 1:size(test_people, 2)
             peo = test_people(:, ii);
-            peo = im2single(peo./255);
-            peo = reshape(peo, imgsize);
+            peo = calibrate_img(peo, imgsize);
+            raw_patch = sift_patches(peo, cloc);
+            sift_pca_weight = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
 
-            [~, d] =  vl_sift(peo,'frames', cloc) ;
-            svm_sift_test = [svm_sift_test, d(:)]; 
+            svm_sift_test = [svm_sift_test, sift_pca_weight(:)]; 
         end
         re_test = mapminmax.apply(double(svm_sift_test), ps);
 
         [predicted_labeln, accur, ~] = svmpredict(test_label, re_test', model);
         eachlearnrate = [eachlearnrate, accur(1)];
-    end
-    re = [re;eachlearnrate];
-    
+    end    
