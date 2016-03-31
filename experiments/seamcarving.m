@@ -29,7 +29,7 @@ if nargin==0
     catch
         [im,map]=imread('street1.jpg');
     end
-    k=50;
+    k=25;
 end
 im=im2double(im);
 
