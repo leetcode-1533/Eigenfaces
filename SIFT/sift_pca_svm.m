@@ -1,6 +1,6 @@
 clear 
 
-ratiorange = 3:8;
+ratiorange = 8:8;
 
 imgsize = [112,92]; 
 numofpeople = 40;
