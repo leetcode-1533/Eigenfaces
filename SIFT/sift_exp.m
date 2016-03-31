@@ -6,9 +6,12 @@ imshow(imgs);
 vl_plotframe(frames);
 
 figure()
-[frames, descrs] = vl_covdet(imgs, 'frames', frames, 'descriptor', 'patch', 'PatchResolution', 40);
+[frames, descrs] = vl_covdet(imgs, 'frames', frames, 'descriptor', 'patch', 'PatchResolution', 20);
 w = sqrt(size(descrs,1)) ;
-vl_imarraysc(reshape(descrs(:, 1:10), w, w,[]));
+patches = reshape(descrs(:, 1:10), w, w,[]);
+vl_imarraysc(patches);
 colormap('gray');
 
-
+figure()
+[gx, gy] = imgradient(patches(:, :, 1), 'central');
+imshowpair(gx, gy, 'montage');
