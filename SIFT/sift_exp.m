@@ -13,5 +13,9 @@ vl_imarraysc(patches);
 colormap('gray');
 
 figure()
-[gx, gy] = imgradient(patches(:, :, 1), 'central');
+[gx, gy] = imgradient(patches(:, :, 1));
+% crop gradient border
+rect = [2, 2, 38, 38];
+gx = imcrop(gx, rect);
+gy = imcrop(gy, rect);
 imshowpair(gx, gy, 'montage');
