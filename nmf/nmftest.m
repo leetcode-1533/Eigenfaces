@@ -6,17 +6,17 @@
 clear;
 imgsize = [112,92];
 
-data = imagedata(40,3);
-[w,h] = boardnmf(data,80,1);
+data = imagedata2(1:40,1:3);
+[w,h] = boardnmf(data,64,1);
 
 % Normalization
-for i = 1:80
+for i = 1:64
     w(:,i) = w(:,i)./norm(w(:,i));
 end
 
 % Show base image
 % show top 40 featured faces
-peekbase(w,imgsize,10,8);
+% peekbase(w,imgsize,10,8);
 
 % Project new faces
 person_pick = 5;
