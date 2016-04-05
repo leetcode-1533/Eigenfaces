@@ -2,12 +2,12 @@
 % Show base image
 % Project new faces
 
-% Decomposion using NMF
 clear;
 imgsize = [112,92];
 
 data = imagedata2(1:40,1:3);
-[w,h] = boardnmf(data,64,1);
+
+[w,h,temp] = boardnmf(data,64,1);
 
 % Normalization
 for i = 1:64
