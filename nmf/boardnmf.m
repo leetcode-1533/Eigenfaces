@@ -1,4 +1,4 @@
-function [w,h]=nmf(v,r,verbose)
+function [w,h,temp]=nmf(v,r,verbose)
 %
 % Jean-Philippe Brunet
 % Cancer Genomics 
@@ -60,7 +60,7 @@ j=0;
 w=rand(n,r);
 h=rand(r,m); 
 
-
+temp = [];
 for i=1:niter
 
 % divergence-reducing NMF iterations
@@ -99,6 +99,7 @@ end
 
 consold=cons;
 
+temp = [temp, sum(sum(abs(v -w*h).^2))];
 end
 end
 
