@@ -23,9 +23,8 @@ clear;
 
 imgsize = [112,92]; 
 
-fulldata = imagedata(40, 10);
-nmfdata = imagedata(40,3);
-pick = fulldata(:, 1);
+nmfdata = imagedata2(1:40,1:3);
+pick = imagedata2(1:1, 10:10);
 recs = []; % reconstruction container
 
 pca1 = [];
@@ -47,7 +46,7 @@ for k = 1 : 10 : 100
     nmfbasetime = toc(nmfbasebegin);
 
     icabasebegin = tic;
-    sbase = fastica(nmfdata', 'numOfIC', k, 'g', 'tanh', 'verbose', 'off');  
+    sbase = fastica(nmfdata', 'numOfIC', k, 'verbose', 'off');  
     for ii = 1 : k
         reversev = sbase(ii, :);
         maxpick = max(reversev);
@@ -95,22 +94,29 @@ for k = 1 : 10 : 100
     recs = [recs, pcareconstr, nmfreconstr, ica_reconstr'];
 end
 
+k = 1 : 10 : 100;
 % creating base time consumation
 f = figure();
 hold on
-plot(pca1);
-plot(nmf1);
-plot(ica1);
-legend('pca', 'nmf', 'ica');
+plot(k, pca1);
+plot(k, nmf1);
+plot(k, ica1);
+plot(k, g3ica);
+legend('pca', 'nmf', 'ica, g(u)=tanh(u)', 'ica, g(u) = u^3');
+title('Base Construction Time');
+xlabel('Base Dimensions');
+ylabel('Time(s)');
 % set(gca,'yscale','log')
 
 % projection time consumation
 f = figure();
 hold on
-plot(pca2);
-plot(nmf2);
-plot(ica2);
+plot(k, pca2);
+plot(k, nmf2);
+plot(k, ica2);
 legend('pca', 'nmf', 'ica');
-
+title('Base Projection Time');
+xlabel('Base Dimensions');
+ylabel('Time(s)');
 % reconstrution comparsion
 peekbase(recs, imgsize, 10, 3)

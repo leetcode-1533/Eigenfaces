@@ -1,4 +1,4 @@
-function [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, k)
+function [pvector, pavg, w, sbase] = PNI_Base_Nopinv(nmfdata, k)
 % pca, ica, nmf base calculation
 [perc, pavg, pvector, ~] = opca(k, nmfdata);
 
@@ -7,7 +7,6 @@ function [pvector, pavg, wpinv, inv_sbase] = PNI_Base(nmfdata, k)
 for i = 1 : k
     w(:,i) = w(:,i)./norm(w(:,i));
 end
-wpinv = pinv(w); % nmf craeted weight
 
 sbase = fastica(nmfdata', 'numOfIC', k, 'verbose', 'off');
 for ii = 1 : k
@@ -20,5 +19,4 @@ for ii = 1 : k
         sbase(ii, :) = -reversev;
     end
 end
-inv_sbase = pinv(sbase); % ica created weight
 

@@ -7,5 +7,4 @@ end
 
 nmfweight = nmfbase*pick; % related individual image weight
 
-icaweight = pick' * icabase; % related individual image weight
-icaweight = icaweight';
+icaweight = icabase*pick; % related individual image weight
