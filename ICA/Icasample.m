@@ -2,11 +2,8 @@ clear;
 
 imgsize = [112,92]; 
 
-images  = imagedata(10, 10);
-test = imagedata(15,5);
-test = test(:,5*10 + 1 : end); % pick person 11~ person 15, 5 images each
-
-s =fastica(images', 'numOfIC', 90, 'displayMode', 'off', 'verbose', 'off');  
+images  = imagedata2(1:40, 1:10);
+s =fastica(images', 'numOfIC', 64, 'verbose', 'off');  
 
 % x = A * s;
 % peekbase(x', imgsize, 2, 1)
@@ -22,6 +19,9 @@ for ii = 1 : 80
 
 end
 
+
+test = imagedata(15,5);
+test = test(:,5*10 + 1 : end); % pick person 11~ person 15, 5 images each
 answer = test' * pinv(s);
 ant = answer * s;
 peekbase(ant', imgsize, 5, 5);
