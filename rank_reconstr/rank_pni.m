@@ -1,3 +1,4 @@
+clear
 imgsize = [112,92];
 
 basedata = imagedata2(1:40, 1:3);
@@ -15,6 +16,9 @@ test4 = double(i2);
 test = [test1, test2, test3(:), test4(:)];
 
 container = [];
+pcacont = [];
+nmfcont = [];
+icacont = [];
 
 dims = 1:10:100;
 for k = dims
@@ -31,11 +35,12 @@ for k = dims
     
     nmftemp = w*nmfweight;
     
-    icatemp = sbase * icaweight;
-    
-    container = [container,pcatemp, nmftemp, icatemp];  
+    icatemp = icaweight * sbase;
+        
+    container = [container,pcatemp, nmftemp, icatemp'];  
 end
 
 colormap('gray');
-imgs = reshape(pvector, 112, 92,[]);
-vl_imarraysc(imgs, 'Layout', [length(dims), 4]);
+imgs = reshape(container, 112, 92,[]);
+vl_imarraysc(imgs, 'Layout', [length(dims),12]);
+axis off;
