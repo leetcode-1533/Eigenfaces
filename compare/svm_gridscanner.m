@@ -1,4 +1,4 @@
-intern = 1:9;
+intern = 1:1:9;
 basesize = 5:5:100;
 % basesize = 10:5:15;
 
@@ -18,33 +18,33 @@ basesize = 5:5:100;
 % end
 
 %%For Combination Plot
-hold on
-ob1 = mesh(xloc, yloc, PCA','faceColor','r');
-ob2 = mesh(xloc, yloc, NMF','faceColor','b'); 
-ob3 = mesh(xloc, yloc, ICA','faceColor','g');
-hlegend = legend([ob1, ob2, ob3], {'PCA','NMF','ICA'});
-set(hlegend,'FontSize',23);
-
-title('SVM Recognition Test')
-xlabel('Learning Sample Rate')
-ylabel('Vector Length')
-zlabel('Recogniton Rate')
+% hold on
+% ob1 = mesh(xloc, yloc, PCA','faceColor','r');
+% ob2 = mesh(xloc, yloc, NMF','faceColor','b'); 
+% ob3 = mesh(xloc, yloc, ICA','faceColor','g');
+% hlegend = legend([ob1, ob2, ob3], {'PCA','NMF','ICA'});
+% set(hlegend,'FontSize',23);
+% 
+% title('SVM Recognition Test')
+% xlabel('Learning Sample Rate')
+% ylabel('Vector Length')
+% zlabel('Recogniton Rate')
 
 
 %% For seperate plot
 % figure(1)
 %     subplot(1,3,1);
-%      bar3plot(1:3:10,basesize, PCA)
+%      bar3plot(1:3:10,5:30:100, PCA)
 %     title('PCA');
 %     view(230, 33)
 %     
 %     subplot(1,3,2);
-%      bar3plot(1:3:10, basesize, NMF)
+%      bar3plot(1:3:10, 5:30:100, NMF)
 %     title('NMF');
 %     view(230, 33)
 %     
 %     subplot(1,3,3);
-%      bar3plot(1:3:10, basesize, ICA)
+%      bar3plot(1:3:10, 5:30:100, ICA)
 %     title('ICA');
 %     view(230, 33)
 %     
@@ -77,3 +77,37 @@ zlabel('Recogniton Rate')
 % sdf(1, 'tk');
 % export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/svm_pcafilter','-png', '-m2.5')
 
+%% PCA, DCT-PCA
+% figure(1)
+% hold on
+% ob1 = mesh(xloc, yloc, PCA','faceColor','r');
+% ob2 = mesh(xloc, yloc, DCTPCA','faceColor','g');
+% hlegend = legend([ob1, ob2], {'PCA','DCT-PCA'});
+% set(hlegend,'FontSize',23);
+% view(3)
+% 
+% 
+% title('SVM Recognition Test')
+% xlabel('Learning Sample Rate')
+% ylabel('Vector Length')
+% zlabel('Recogniton Rate')
+% sdf(1, 'tk');
+% export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/svm_pca_dct','-pdf')
+
+%% ICA, DCT-ICA
+% figure(1)
+% hold on
+% ob1 = mesh(xloc, yloc, ICA','faceColor','r');
+% ob2 = mesh(xloc, yloc, DCTICA','faceColor','g');
+% % ob3 = mesh(xloc, yloc, NMF','faceColor','b');
+% hlegend = legend([ob1, ob2], {'ICA','DCT-ICA'});
+% set(hlegend,'FontSize',23);
+% view(3)
+% 
+% 
+% title('SVM Recognition Test')
+% xlabel('Learning Sample Rate')
+% ylabel('Vector Length')
+% zlabel('Recogniton Rate')
+% sdf(1, 'tk');
+% export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/svm_ica_dct','-pdf')
