@@ -1,3 +1,4 @@
+%% Sift Distance matrix
 cloc = sift_dim(20);
 [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base(); %itself used 20 as well
 imgsize = [112,92]; 

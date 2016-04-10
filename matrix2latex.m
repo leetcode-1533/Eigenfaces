@@ -46,7 +46,8 @@ function matrix2latex(matrix, filename, varargin)
     format = [];
     textsize = [];
     if (rem(nargin,2) == 1 || nargin < 2)
-        error('matrix2latex: ', 'Incorrect number of arguments to %s.', mfilename);
+        filename='/tmp/test';
+%         error('matrix2latex: ', 'Incorrect number of arguments to %s.', mfilename);
     end
 
     okargs = {'rowlabels','columnlabels', 'alignment', 'format', 'size'};
@@ -157,3 +158,6 @@ function matrix2latex(matrix, filename, varargin)
     end
 
     fclose(fid);
+    
+    text = fileread(filename);
+    clipboard('copy',text);

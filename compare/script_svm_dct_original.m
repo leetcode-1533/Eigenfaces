@@ -1,7 +1,7 @@
 % do a comparsion in between dct and original
 clear
-n = 8; % ratio adjustable
-basesize = 30; %: adjustable
+n = 9; % ratio adjustable
+basesize = 40; %: adjustable
 % basesize: project size per method, less than 120 
 numofpeople = 40;
 numofperspective = 10;
