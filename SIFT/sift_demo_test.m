@@ -8,30 +8,55 @@ test = reshape(test, imgsize);
 
 [f, d] = vl_sift(test);
 imshow(test, []);
-% h1 = vl_plotframe(f) ;
-% h2 = vl_plotframe(f) ;
-% set(h1,'color','k','linewidth',3) ;
-% set(h2,'color','y','linewidth',2) ;
-perm = randperm(size(f,2));
-sel = perm(1:10);
+h1 = vl_plotframe(f) ;
 
-h3 = vl_plotsiftdescriptor(d(:,sel),f(:,sel));
-set(h3,'color','g');
+%% show Feature points
+
+clear
+imgsize = [112,92]; 
+
+pic = [];
+
+imgs = imagedata2(1:3, 1:3);
+for ii = 1:size(imgs,2)
+    test = imgs(:,ii);
+    test = test./255;
+    test = im2single(test);
+    test = reshape(test, imgsize);
+    [f, d] = vl_sift(test);
+    imshow(test, []);
+    h1 = vl_plotframe(f);
+    
+    pic_temp = getframe(gcf);
+    
+    pic = [pic,pic_temp.cdata(:)];
+end
+
+ori = [];
+for ii = 1:size(imgs, 2)
+    temp = reshape(imgs(:,ii),imgsize);
+    ori(:,:,ii) = temp;
+end
+
+title('SIFT Detectors')
+subplot(1,2,1);
+title('Input Samples');
+vl_imarraysc(ori);
+grid off;
+colormap('gray');
+
+subplot(1,2,2);
+title('SIFT Detectors')
+pic_imgs = reshape(pic, 170,218,3,[]);
+grid off;
+vl_imarraysc(pic_imgs,'Layout',[3,3],'Spacing',0);
 
 
-test2 = imagedata2(1:1, 1:1);
-test2 = test2./255;
-test2 = im2single(test2);
-test2 = reshape(test2, imgsize);
-[newf, newd] = vl_sift(test2, 'frames', f,'orientations');
-% 
-figure();
-imshow(test2, []);
-h2 = vl_plotframe(newf);
-h3 = vl_plotsiftdescriptor(newd(:,sel),newf(:,sel));
-set(h3,'color','g');
+export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/sift_detectors','-pdf')
 
-%% DCT On Database
+
+
+%% Dog On Database
 samples = imagedata2(1:20, 1:10);
 imgsize = [112,92]; 
 
