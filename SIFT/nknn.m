@@ -2,18 +2,20 @@
 warning('off','all')
 clear 
 
-ratiorange = 5:5;
+ratiorange = 1:9;
 
 imgsize = [112,92]; 
 numofpeople = 40;
 numofperspective = 10;
 
 re = [];
+performence = [];
 
 test_peo = cell(0);
 forest = cell(0);
 for iter = ratiorange
-    for peoi = 1 : numofpeople
+   iter
+   parfor peoi = 1 : numofpeople
         trs = randperm(numofperspective);
 
         train_people = imagedata2(peoi, trs(1 : iter)); % training sample for class peoi
@@ -35,13 +37,13 @@ for iter = ratiorange
         end
 
         %construct current kdtree
-        peoi_tree = KDTreeSearcher(d_all');
+        peoi_tree = KDTreeSearcher(double(d_all'));
         forest{peoi} = peoi_tree;
     end
     
     re = cell(0);
     % testing on the samples
-    for peoi = 1 : numofpeople
+    parfor peoi = 1 : numofpeople
         cur_test = test_peo{peoi};
         
         ans = []; % should be a length of 5 vector
@@ -58,7 +60,7 @@ for iter = ratiorange
                 dis_all = 0;
 
                 for ditem = 1 : size(d, 2)
-                    [~, dis] = knnsearch(forest{tree}, d(:, ditem)');
+                    [~, dis] = knnsearch(forest{tree}, double(d(:, ditem)'));
                     dis_all = dis_all + dis;
                 end
                 
@@ -67,15 +69,16 @@ for iter = ratiorange
             [~, Idx] = min(d_list);
             ans = [ans, Idx];
         end
-        re{peoi} = ans;     
-        peoi
+        re{peoi} = ans;    
     end
+    
+    % report results
+    retest = cell2mat(re');
+    result = [];
+    for i = 1 : numofpeople
+        result(i,:) = retest(i,:) - i;
+    end
+    [sx, sy] = size(result);
+    performence = [performence, 1 - length(find(result ~= 0))/(sx*sy)];
 end
 
-% report results
-retest = cell2mat(re');
-for i = 1 : numofpeople
-    result(i,:) = retest(i,:) - i;
-end
-[sx, sy] = size(result);
-1 - length(find(result ~= 0))/(sx*sy)
