@@ -1,25 +1,12 @@
-%% Dataset
-clear
-
-basedata = imagedata2(1:40,1:3);  
-testdata = imagedata2(1:40, 1:10);
-
-[pvector, pavg, wpinv, inv_sbase] = PNI_Base(basedata, 64);
-[train_p, train_n, train_i] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, testdata);
-
-label = repmat(1:40,10,1);
-label = label(:);
-
-
 %% Original 
 basedata = imagedata2(1:40,1:3);  
 testdata = imagedata2(1:40, 1:10);
-[pvector, pavg, wpinv, inv_sbase] = PNI_Base(basedata, 64);
+% [pvector, pavg, wpinv, inv_sbase] = PNI_Base(basedata, 64);
 
 % Original data generator
 numofpeople = 40;
 numofperspective = 10;
-n = 9; % ratio adjustable
+n = 10; % ratio adjustable
 imgsize = [112,92];
 
 train_people = zeros(imgsize(1) * imgsize(2), n * numofpeople);
@@ -29,6 +16,7 @@ test_label = [];
 
 for i = 1 : numofpeople
     trs = randperm(numofperspective);
+    trs = 1:10;
  
     train_people(:, ((i - 1) * n + 1) : i * n)  = imagedata2(i, trs(1 : n));
     train_label(((i - 1) * n + 1) : i * n,  1) =  repmat(i, n, 1);
