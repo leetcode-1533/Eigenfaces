@@ -1,13 +1,13 @@
 function H = sift_bow_proj(peo, centers)
 % peo is a single image
 
-numClusters = 30;
 if(centers ==0)
+    numClusters = 30;
     centers= sift_bow(numClusters);
+else
+    numClusters = size(centers,2);
 end
 
-peo = im2single(peo./255);
-peo = reshape(peo, imgsize);
 [~,D] = vl_sift(peo);
 D = single(D);
 
