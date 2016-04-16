@@ -1,19 +1,21 @@
 % kd forest
 warning('off','all')
 clear 
-
-ratiorange = 5:5;
+[~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
+    
+ratiorange = 1:9;
 
 imgsize = [112,92]; 
 numofpeople = 40;
 numofperspective = 10;
 
 re = [];
+performence = [];
 
 test_peo = cell(0);
 forest = cell(0);
 for iter = ratiorange
-    for peoi = 1 : numofpeople
+    parfor peoi = 1 : numofpeople
         trs = randperm(numofperspective);
 
         train_people = imagedata2(peoi, trs(1 : iter)); % training sample for class peoi
@@ -27,10 +29,11 @@ for iter = ratiorange
         d_all = [];
         for item = 1:size(train_people,2)
             peo = train_people(:, item);
-            peo = im2single(peo./255);
-            peo = reshape(peo, imgsize);
-
-            [~, d] = vl_sift(peo);
+            peo = calibrate_img(peo, imgsize);
+            [cloc, ~] = vl_sift(peo);
+            raw_patch = sift_patches(peo, cloc);
+            d = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
+            
             d_all = [d_all, d];
         end
 
@@ -40,18 +43,19 @@ for iter = ratiorange
     end
     
     re = cell(0);
+    
     % testing on the samples
-    for peoi = 1 : numofpeople
+    parfor peoi = 1 : numofpeople
         cur_test = test_peo{peoi};
         
         ans = []; % should be a length of 5 vector
         % test each people
         for item = 1 : size(cur_test,2)
             peo = cur_test(:, item);
-            peo = im2single(peo./255);
-            peo = reshape(peo, imgsize);
-
-            [~, d] = vl_sift(peo);
+            peo = calibrate_img(peo, imgsize);
+            [cloc, ~] = vl_sift(peo);
+            raw_patch = sift_patches(peo, cloc);
+            d = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
             
             d_list = [];
             for tree = 1:length(forest)
@@ -68,14 +72,16 @@ for iter = ratiorange
             ans = [ans, Idx];
         end
         re{peoi} = ans;     
-        peoi
     end
+    
+    
+    % report results
+    retest = cell2mat(re');
+    result = [];
+    for i = 1 : numofpeople
+        result(i,:) = retest(i,:) - i;
+    end
+    [sx, sy] = size(result);
+    performence = [performence, 1 - length(find(result ~= 0))/(sx*sy)];
 end
 
-% report results
-retest = cell2mat(re');
-for i = 1 : numofpeople
-    result(i,:) = retest(i,:) - i;
-end
-[sx, sy] = size(result);
-1 - length(find(result ~= 0))/(sx*sy)
