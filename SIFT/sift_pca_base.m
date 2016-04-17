@@ -1,4 +1,4 @@
-function [perc, avg, pvector, D] = sift_pca_base()
+function [perc, avg, pvector, D] = sift_pca_base(basesize)
     imgs = imagedata2(1:40, 1:10);
     imgsize = [112,92]; 
 
@@ -13,6 +13,6 @@ function [perc, avg, pvector, D] = sift_pca_base()
         patches = [patches, peo_patch]; 
     end
 
-    [perc, avg, pvector, D] = opca(20, patches);
+    [perc, avg, pvector, D] = opca(basesize, patches);
 
 

@@ -1,6 +1,6 @@
 clear 
 
-ratiorange = 1:9;
+ratiorange = 7:
 
 imgsize = [112,92]; 
 numofpeople = 40;
@@ -11,7 +11,7 @@ locrange = 1:3:20;
 re = [];
 for loci = 1 : length(locrange)
     cloc = sift_dim(locrange(loci));
-    [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
+    [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base(20);
     
     eachlearnrate = [];
     for iter = ratiorange
