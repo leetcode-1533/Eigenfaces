@@ -1,6 +1,6 @@
 %% Sift Distance matrix
 cloc = sift_dim(20);
-[~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base(); %itself used 20 as well
+[~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base(20); %itself used 20 as well
 imgsize = [112,92]; 
 
 train_people = imagedata2(1:40, 1:10);
