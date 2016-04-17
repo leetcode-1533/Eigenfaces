@@ -1,15 +1,16 @@
 clear 
 
-ratiorange = 8:8;
+ratiorange = 1:9;
 
 imgsize = [112,92]; 
 numofpeople = 40;
 numofperspective = 10;
 
-locrange = 3:3;
+locrange = 1:3:20;
 
 re = [];
-    cloc = sift_dim(20);
+for loci = 1 : length(locrange)
+    cloc = sift_dim(locrange(loci));
     [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
     
     eachlearnrate = [];
@@ -64,4 +65,7 @@ re = [];
 
         [predicted_labeln, accur, ~] = svmpredict(test_label, re_test', model);
         eachlearnrate = [eachlearnrate, accur(1)];
-    end    
+    end  
+
+    re = [re;eachlearnrate];   
+end

@@ -94,9 +94,10 @@ for k = 1 : 10 : 100
     recs = [recs, pcareconstr, nmfreconstr, ica_reconstr'];
 end
 
+%% creating base time consumation
+figure()
 k = 1 : 10 : 100;
-% creating base time consumation
-f = figure();
+
 hold on
 plot(k, pca1);
 plot(k, nmf1);
@@ -106,10 +107,13 @@ legend('pca', 'nmf', 'ica, g(u)=tanh(u)', 'ica, g(u) = u^3');
 title('Base Construction Time');
 xlabel('Base Dimensions');
 ylabel('Time(s)');
+sdf(1, 'tk');
+export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/pni_baseconstr','-pdf')
+
 % set(gca,'yscale','log')
 
 % projection time consumation
-f = figure();
+figure(2)
 hold on
 plot(k, pca2);
 plot(k, nmf2);
@@ -118,5 +122,9 @@ legend('pca', 'nmf', 'ica');
 title('Base Projection Time');
 xlabel('Base Dimensions');
 ylabel('Time(s)');
+sdf(2, 'tk');
+export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/pni_baseproj','-pdf')
+
+
 % reconstrution comparsion
-peekbase(recs, imgsize, 10, 3)
+% peekbase(recs, imgsize, 10, 3)
