@@ -17,3 +17,25 @@ sift_pca_svm = [
    50.0000   70.3125   73.5714   82.9167   81.0000   86.8750   83.3333   91.2500   85.0000];
 
 
+figure(1)
+ratiorange = 10:10:90;
+locrange = 1:3:20;
+[xloc, yloc] = meshgrid(ratiorange, locrange);
+
+
+hold on
+ob1 = mesh(xloc, yloc, sift_svm,'faceColor','r');
+ob2 = mesh(xloc, yloc, sift_pca_svm,'faceColor','b'); 
+% ob3 = mesh(xloc, yloc, ICA','faceColor','g');
+hlegend = legend([ob1, ob2], {'SIFT','SIFT-PCA'});
+
+set(hlegend,'FontSize',23);
+% 
+title('SVM Recognition Test')
+xlabel('Learning Sample Rate(%)')
+ylabel('Feature Points')
+zlabel('Recogniton Rate')
+
+sdf(1, 'tk')
+
+
