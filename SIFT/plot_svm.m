@@ -38,4 +38,24 @@ zlabel('Recogniton Rate')
 
 sdf(1, 'tk')
 
+%% SIFT-PCA Accurancy
+
+locrange = 1:4:30;
+pcasizerange = 3:5:80;
+
+[xloc, yloc] = meshgrid(pcasizerange, locrange);
+ob1 = mesh(xloc, yloc, re,'faceColor','r');
+
+
+% hlegend = legend([ob1], {'SIFT','SIFT-PCA'});
+
+% set(hlegend,'FontSize',23);
+% 
+title('SVM Recognition Test')
+xlabel('PCA Vector Length')
+ylabel('Feature Points')
+zlabel('Recogniton Rate')
+sdf(1, 'tk')
+
+
 
