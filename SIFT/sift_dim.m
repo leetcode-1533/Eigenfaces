@@ -1,7 +1,7 @@
-function c = sift_dim(k) %detector location based on 100 people
+function c = sift_dim(k, imgsize) %detector location based on 100 people
 
 imgs = imagedata2(1:40, 1:10);
-imgsize = [112,92]; 
+ori_imgsize = [112,92]; 
 
 fcontainer = cell(0);
 dcontainer = cell(0);
@@ -12,7 +12,9 @@ for ii = 1:100 % first 100 samples
     peo = imgs(:, ii);
     
     peo = im2single(peo./255);
-    peo = reshape(peo, imgsize);
+    peo = reshape(peo, ori_imgsize);
+    peo = imresize(peo, imgsize);
+
     
     [f, d] = vl_sift(peo);
     fcontainer{ii} = f;
