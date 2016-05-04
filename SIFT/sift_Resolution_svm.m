@@ -14,7 +14,7 @@ ori_imgsize = [112,92];
 sam_image = imagedata2(1,1);
 sam_image = reshape(sam_image, ori_imgsize);
 for imgratio = 1 : length(locrange)
-    imgsize = size(imresize(sam_image,imgratio));
+    imgsize = size(seamada(sam_image,imgratio));
 
     cloc = sift_dim(loci, imgsize);
     
@@ -49,7 +49,9 @@ for imgratio = 1 : length(locrange)
             peo = train_people(:, ii);
             peo = im2single(peo./255);
             peo = reshape(peo, ori_imgsize);
-            peo = imresize(peo, imgsize);
+            peo = seamada(peo, imgsize);
+            peo = im2single(peo);
+
 
             [~, d] =  vl_sift(peo,'frames', cloc) ;
             svm_sift_train = [svm_sift_train, d(:)]; 
@@ -63,7 +65,9 @@ for imgratio = 1 : length(locrange)
             peo = test_people(:, ii);
             peo = im2single(peo./255);
             peo = reshape(peo, ori_imgsize);
-            peo = imresize(peo, imgsize);
+            peo = seamada(peo, imgsize);
+            peo = im2single(peo);
+
 
 
             [~, d] =  vl_sift(peo,'frames', cloc) ;
