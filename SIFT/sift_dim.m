@@ -13,7 +13,7 @@ for ii = 1:100 % first 100 samples
     
     peo = im2single(peo./255);
     peo = reshape(peo, ori_imgsize);
-    peo = seamada(peo, imgsize);
+    peo = imresize(peo, imgsize);
     peo = im2single(peo);
 
     

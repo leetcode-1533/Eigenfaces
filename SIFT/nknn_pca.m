@@ -3,7 +3,7 @@ warning('off','all')
 clear 
 [~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
     
-ratiorange = 1:9;
+ratiorange = 1:1;
 
 imgsize = [112,92]; 
 numofpeople = 40;

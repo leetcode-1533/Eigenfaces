@@ -3,7 +3,7 @@ function [perc, avg, pvector, D] = sift_pca_base(basesize)
     imgsize = [112,92]; 
 
     patches = [];
-    frame = sift_dim(20);
+    frame = sift_dim(20,imgsize);
     for ii = 1:100 % first 100 samples
         peo = imgs(:, ii);
 
