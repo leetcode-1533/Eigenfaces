@@ -1,19 +1,25 @@
 % kd forest
 warning('off','all')
 clear 
-[~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base();
     
-ratiorange = 1:1;
+ratiorange = 1:2;
+locrange = 0.9:-0.1:0.8;
 
-imgsize = [112,92]; 
+
+ori_imgsize = [112,92]; 
 numofpeople = 40;
 numofperspective = 10;
+sam_image = imagedata2(1,1);
+sam_image = reshape(sam_image, ori_imgsize);
 
-re = [];
-performence = [];
-
+resol_res = [];
+for imgratio = 1 : length(locrange)
+    
 test_peo = cell(0);
 forest = cell(0);
+performence = [];
+imgsize = size(imresize(sam_image,locrange(imgratio)));
+[~, sift_pca_avg, sift_pca_vector, ~] = sift_pca_base(20, imgsize);
 for iter = ratiorange
     parfor peoi = 1 : numofpeople
         trs = randperm(numofperspective);
@@ -29,7 +35,9 @@ for iter = ratiorange
         d_all = [];
         for item = 1:size(train_people,2)
             peo = train_people(:, item);
-            peo = calibrate_img(peo, imgsize);
+            peo = calibrate_img(peo, ori_imgsize);
+            peo = imresize(peo, imgsize);
+
             [cloc, ~] = vl_sift(peo);
             raw_patch = sift_patches(peo, cloc);
             d = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
@@ -52,7 +60,9 @@ for iter = ratiorange
         % test each people
         for item = 1 : size(cur_test,2)
             peo = cur_test(:, item);
-            peo = calibrate_img(peo, imgsize);
+            peo = calibrate_img(peo, ori_imgsize);
+            peo = imresize(peo, imgsize);
+
             [cloc, ~] = vl_sift(peo);
             raw_patch = sift_patches(peo, cloc);
             d = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
@@ -73,9 +83,7 @@ for iter = ratiorange
         end
         re{peoi} = ans;     
     end
-    
-    
-    % report results
+     % report results
     retest = cell2mat(re');
     result = [];
     for i = 1 : numofpeople
@@ -83,5 +91,9 @@ for iter = ratiorange
     end
     [sx, sy] = size(result);
     performence = [performence, 1 - length(find(result ~= 0))/(sx*sy)];
+end
+resol_res = [resol_res;performence];
+    
+
 end
 

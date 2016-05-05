@@ -1,8 +1,8 @@
-function img = seamada(image, scale)
+function img = seamada(image, img_size)
 
-size_img = imresize(image, scale,'nearest');
+% size_img = imresize(image, scale,'nearest');
+% img_size = size(size_img);
 
-img_size = size(size_img);
 img_size_origial = size(image);
 img_size_diff = img_size_origial - img_size;
 

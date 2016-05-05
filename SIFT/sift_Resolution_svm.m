@@ -1,11 +1,11 @@
 clear 
 
-ratiorange = 1:1:9;
+ratiorange = 1:4:9;
 
 numofpeople = 40;
 numofperspective = 10;
 
-locrange = 0.9:-0.1:0.3;
+locrange = 0.9:-0.4:0.3;
 loci = 15; % region number, configurable
 
 re = [];
@@ -14,7 +14,7 @@ ori_imgsize = [112,92];
 sam_image = imagedata2(1,1);
 sam_image = reshape(sam_image, ori_imgsize);
 for imgratio = 1 : length(locrange)
-    imgsize = size(seamada(sam_image,imgratio));
+    imgsize = size(imresize(sam_image,locrange(imgratio)));
 
     cloc = sift_dim(loci, imgsize);
     
