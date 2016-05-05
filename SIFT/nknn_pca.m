@@ -2,8 +2,8 @@
 warning('off','all')
 clear 
     
-ratiorange = 1:2;
-locrange = 0.9:-0.1:0.8;
+ratiorange = 3:1:8;
+locrange = 0.4:0.1:1;
 
 
 ori_imgsize = [112,92]; 
@@ -14,7 +14,8 @@ sam_image = reshape(sam_image, ori_imgsize);
 
 resol_res = [];
 for imgratio = 1 : length(locrange)
-    
+locrange(imgratio)
+
 test_peo = cell(0);
 forest = cell(0);
 performence = [];
@@ -38,7 +39,7 @@ for iter = ratiorange
             peo = calibrate_img(peo, ori_imgsize);
             peo = imresize(peo, imgsize);
 
-            [cloc, ~] = vl_sift(peo);
+            cloc = vl_sift(peo);
             raw_patch = sift_patches(peo, cloc);
             d = sift_pca_projection(raw_patch, sift_pca_vector, sift_pca_avg);
             
@@ -79,6 +80,7 @@ for iter = ratiorange
                 d_list = [d_list, dis_all];
             end
             [~, Idx] = min(d_list);
+            
             ans = [ans, Idx];
         end
         re{peoi} = ans;     

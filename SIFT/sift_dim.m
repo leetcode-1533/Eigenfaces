@@ -27,8 +27,8 @@ end
 fmat = cell2mat(fcontainer);
 % scatter3(fmat(1,:), fmat(2,:), fmat(3,:));
 
-opts = statset('Display','final');
-[idx, c] = kmeans(fmat', k,'Replicates',5, 'Options', opts); % k is arbitary
+% opts = statset('Display','final');
+[idx, c] = kmeans(fmat', k,'Replicates',5);% 'Options', opts); % k is arbitary
 
 c = c';
 % imshow(peo, []);
