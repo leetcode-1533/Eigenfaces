@@ -1,11 +1,11 @@
 clear 
 
-ratiorange = 1:4:9;
+ratiorange = 3:1:8;
 
 numofpeople = 40;
 numofperspective = 10;
 
-locrange = 0.9:-0.4:0.3;
+locrange = 0.4:0.1:1;
 loci = 15; % region number, configurable
 
 re = [];
@@ -65,7 +65,7 @@ for imgratio = 1 : length(locrange)
             peo = test_people(:, ii);
             peo = im2single(peo./255);
             peo = reshape(peo, ori_imgsize);
-            peo = seamada(peo, imgsize);
+            peo = imresize(peo, imgsize);
             peo = im2single(peo);
 
 
