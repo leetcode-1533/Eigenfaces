@@ -1,6 +1,6 @@
 %% Cross Valid base generator
-clear
-imgratio = 0.4;
+function acc_con = Crossvalid_basegen(imgratio)
+% imgratio = 0.4;
 
 ori_imgsize = [112,92]; 
 sam_image = imagedata2(1,1);
@@ -35,14 +35,15 @@ for fold = 2:9
     acc = mean(acc');
     acc_con = [acc_con, acc];
 end
-%% Plot
-figure(1)
-hold on;
-plot(2:9, acc_con,'b-');
-plot(2:9, acc_con,'rx');
 
-title('Cross Validation Fold Size');
-xlabel('Fold Size');
-ylabel('Accurancy');
-sdf(1, 'tk');
+%% Plot
+% figure(1)
+% hold on;
+% plot(2:9, acc_con,'b-');
+% plot(2:9, acc_con,'rx');
+% 
+% title('Cross Validation Fold Size');
+% xlabel('Fold Size');
+% ylabel('Accurancy');
+% sdf(1, 'tk');
 % export_fig('/Users/y1275963/Dropbox/thesis/Img/fig/svm_fold','-pdf')
