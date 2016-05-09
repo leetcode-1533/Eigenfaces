@@ -64,7 +64,6 @@ function acc = nknn_crov(xtrain, ytrain, xtest, ytest)
                 ans = [ans, Idx];
             end
             re{peoi} = ans;     
-            peoi
         end
     end
 
@@ -74,7 +73,7 @@ function acc = nknn_crov(xtrain, ytrain, xtest, ytest)
         result(i,:) = retest(i,:) - i;
     end
     [sx, sy] = size(result);
-    1 - length(find(result ~= 0))/(sx*sy)
+    acc = 1 - length(find(result ~= 0))/(sx*sy);
 
 
 

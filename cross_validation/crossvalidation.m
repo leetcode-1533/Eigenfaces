@@ -11,5 +11,5 @@ for i = 1:fold
     test_samples = mapped_data(test, :);
     train_samples = mapped_data(train,:);
     
-    acc(i) = svm_crov(train_samples, train_label, test_samples, test_label);
+    acc(i) = nknn_crov(train_samples, train_label, test_samples, test_label);
 end

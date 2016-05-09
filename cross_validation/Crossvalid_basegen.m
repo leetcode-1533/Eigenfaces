@@ -1,11 +1,18 @@
 %% Cross Valid base generator
 clear
+imgratio = 0.8;
 
-basedata = imagedata2(1:40,1:3);  
-testdata = imagedata2(1:40, 1:10);
+ori_imgsize = [112,92]; 
+sam_image = imagedata2(1,1);
+sam_image = reshape(sam_image, ori_imgsize);
+imgsize = size(imresize(sam_image,imgratio));
 
-[pvector, pavg, wpinv, inv_sbase] = PNI_Base(basedata, 64);
-[pca_set, nmf_set, ica_set] = PNI_Projection(pvector, pavg, wpinv, inv_sbase, testdata);
+
+basedata = imagedata2_resol(1:40, 1:3, imgsize);  
+testdata = imagedata2_resol(1:40, 1:10, imgsize);
+
+[pvector, pavg, inv_sbase] = PI_Base(basedata, 64);
+[pca_set, ~, ica_set] = PNI_Projection(pvector, pavg, 0, inv_sbase, testdata);
 
 mapped_pca = mapminmax(pca_set);
 mapped_pca = mapped_pca';
@@ -16,7 +23,7 @@ label = label(:);
 %% SVM Demo
 acc_con = [];
 for fold = 2:9
-    acc = crossvalidation(mapped_pca, label, fold);
+    acc = crossvalidation(testdata, label, fold);
     acc = mean(acc');
     acc_con = [acc_con, acc];
 end
