@@ -15,7 +15,7 @@ test_peo = cell(0);
 forest = cell(0);
 for iter = ratiorange
    iter
-   for peoi = 1 : numofpeople
+   parfor peoi = 1 : numofpeople
         trs = randperm(numofperspective);
 
         train_people = imagedata2(peoi, trs(1 : iter)); % training sample for class peoi
@@ -40,6 +40,7 @@ for iter = ratiorange
         peoi_tree = KDTreeSearcher(double(d_all'));
         forest{peoi} = peoi_tree;
     end
+  
     
     re = cell(0);
     % testing on the samples
