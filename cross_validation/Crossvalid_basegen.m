@@ -21,8 +21,7 @@ mapped_pca = mapped_pca';
 label = repmat(1:40,10,1);
 label = label(:);
 %% SIFT
-cloc = sift_dim(locrange(loci));
-
+cloc = sift_dim_resol(20, );
 [re_train, ps] = sift_proj(testdata, cloc, imgsize);
 %% SVM Demo
 acc_con = [];
