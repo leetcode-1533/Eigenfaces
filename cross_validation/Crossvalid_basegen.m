@@ -11,6 +11,7 @@ imgsize = size(imresize(sam_image,imgratio));
 basedata = imagedata2_resol(1:40, 1:3, imgsize);  
 testdata = imagedata2_resol(1:40, 1:10, imgsize);
 
+%% PCA & ICA
 [pvector, pavg, inv_sbase] = PI_Base(basedata, 64);
 [pca_set, ~, ica_set] = PNI_Projection(pvector, pavg, 0, inv_sbase, testdata);
 
@@ -19,11 +20,14 @@ mapped_pca = mapped_pca';
 
 label = repmat(1:40,10,1);
 label = label(:);
+%% SIFT
+cloc = sift_dim(locrange(loci));
 
+[re_train, ps] = sift_proj(testdata, cloc, imgsize);
 %% SVM Demo
 acc_con = [];
 for fold = 2:9
-    acc = crossvalidation(testdata, label, fold);
+    acc = crossvalidation(mapped_pca, label, fold);
     acc = mean(acc');
     acc_con = [acc_con, acc];
 end
