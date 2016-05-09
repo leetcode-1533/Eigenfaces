@@ -1,4 +1,4 @@
-function acc = crossvalidation(mapped_data, label, fold)
+function acc = crossvalidation_nknn(mapped_data, label, fold)
 
 indices = crossvalind('Kfold', 10, fold);
 indices = repmat(indices, 40, 1);
@@ -8,8 +8,8 @@ for i = 1:fold
     test_label = label(test);
     train_label = label(train);
     
-    test_samples = mapped_data(test, :);
-    train_samples = mapped_data(train,:);
+    test_samples = mapped_data(test);
+    train_samples = mapped_data(train);
     
     acc(i) = nknn_crov(train_samples, train_label, test_samples, test_label);
 end

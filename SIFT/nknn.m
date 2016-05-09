@@ -15,7 +15,7 @@ test_peo = cell(0);
 forest = cell(0);
 for iter = ratiorange
    iter
-   parfor peoi = 1 : numofpeople
+   for peoi = 1 : numofpeople
         trs = randperm(numofperspective);
 
         train_people = imagedata2(peoi, trs(1 : iter)); % training sample for class peoi
