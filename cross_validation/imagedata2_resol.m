@@ -21,7 +21,7 @@ for i = 1 : length(people)
         f = fullfile(dir,people_dir,image);
 
         img = double(imread(f));
-        img = imresize(img, resol);
+        img = seamada(img, resol);
         
         database(:,(i-1)*length(subpeople)+j) = img(:);
     end

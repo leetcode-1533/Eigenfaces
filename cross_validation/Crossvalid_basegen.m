@@ -14,18 +14,18 @@ testdata = imagedata2_resol(1:40, 1:10, imgsize);
 label = repmat(1:40,10,1);
 label = label(:);
 %% PCA & ICA
-[pvector, pavg, inv_sbase] = PI_Base(basedata, 64);
-[pca_set, ~, ica_set] = PNI_Projection(pvector, pavg, 0, inv_sbase, testdata);
-
-mapped_pca = mapminmax(pca_set);
-mapped_pca = mapped_pca';
+% [pvector, pavg, inv_sbase] = PI_Base(basedata, 64);
+% [pca_set, ~, ica_set] = PNI_Projection(pvector, pavg, 0, inv_sbase, testdata);
+% 
+% mapped_pca = mapminmax(pca_set);
+% mapped_pca = mapped_pca';
 
 %% SIFT
-cloc = sift_dim_resol(20,basedata, imgsize);
-sift_encoded = sift_proj(testdata, cloc, imgsize);
-
-sift_encoded = mapminmax(double(sift_encoded));
-sift_encoded = sift_encoded';
+% cloc = sift_dim_resol(20,basedata, imgsize);
+% sift_encoded = sift_proj(testdata, cloc, imgsize);
+% 
+% sift_encoded = mapminmax(double(sift_encoded));
+% sift_encoded = sift_encoded';
 %% SIFT NKNN
 sift_nknn = sift_nknn_proj(testdata, imgsize);
 %% SVM Demo
